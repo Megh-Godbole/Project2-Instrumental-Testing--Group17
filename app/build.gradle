@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    namespace 'com.example.InstumentalTesting'
+
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.InstrumentalTesting"
+        minSdk 14
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+
+        managedDevices {
+            devices {
+                nexusOneApi30(com.android.build.api.dsl.ManagedVirtualDevice) {
+                    device = "Nexus One"
+                    apiLevel = 30
+                    systemImageSource = "aosp-atd"
+                }
+            }
+        }
+    }
+    lint {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    // App dependencies
+    implementation 'androidx.annotation:annotation:' + rootProject.androidxAnnotationVersion
+    implementation 'com.google.guava:guava:' + rootProject.guavaVersion
+
+    // Testing-only dependencies
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    androidTestImplementation 'androidx.test:core:' + rootProject.coreVersion
+    androidTestImplementation 'androidx.test:core-ktx:' + rootProject.coreVersion
+    androidTestImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
+    androidTestImplementation 'androidx.test.ext:junit-ktx:' + rootProject.extJUnitVersion
+    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion
+    androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
+
+    testImplementation 'androidx.test:core:' + rootProject.coreVersion
+    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:' + rootProject.robolectricVersion
+    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
+    testImplementation 'androidx.test.espresso:espresso-intents:' + rootProject.espressoVersion
+    testImplementation 'androidx.test.ext:truth:' + rootProject.extTruthVersion
+
+    // Explicit versions (if rootProject properties are missing)
+    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'com.google.guava:guava:31.1-android'
+}
