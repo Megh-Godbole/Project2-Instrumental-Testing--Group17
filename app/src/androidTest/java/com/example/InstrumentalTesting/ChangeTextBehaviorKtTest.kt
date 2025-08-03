@@ -1,4 +1,5 @@
 package com.example.InstrumentalTesting
+
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -47,12 +48,30 @@ class ChangeTextBehaviorKtTest {
         onView(withId(R.id.changeTextBt)).perform(click())
         onView(withId(R.id.textToBeChanged)).check(matches(withText("123")))
     }
+
     @Test
     fun changeText_newActivity_with123() {
         onView(withId(R.id.editTextUserInput))
             .perform(typeText("123"), closeSoftKeyboard())
         onView(withId(R.id.activityChangeTextBtn)).perform(click())
         onView(withId(R.id.show_text_view)).check(matches(withText("123")))
+    }
+
+    // Test typing alphabet input: abcdef
+    @Test
+    fun changeText_sameActivity_withAlphabets() {
+        onView(withId(R.id.editTextUserInput))
+            .perform(typeText("abcdef"), closeSoftKeyboard())
+        onView(withId(R.id.changeTextBt)).perform(click())
+        onView(withId(R.id.textToBeChanged)).check(matches(withText("abcdef")))
+    }
+
+    @Test
+    fun changeText_newActivity_withAlphabets() {
+        onView(withId(R.id.editTextUserInput))
+            .perform(typeText("abcdef"), closeSoftKeyboard())
+        onView(withId(R.id.activityChangeTextBtn)).perform(click())
+        onView(withId(R.id.show_text_view)).check(matches(withText("abcdef")))
     }
 
     // Test with empty input
@@ -71,5 +90,4 @@ class ChangeTextBehaviorKtTest {
         onView(withId(R.id.activityChangeTextBtn)).perform(click())
         onView(withId(R.id.show_text_view)).check(matches(withText("")))
     }
-
 }
