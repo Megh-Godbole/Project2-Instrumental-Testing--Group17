@@ -55,4 +55,13 @@ class ChangeTextBehaviorKtTest {
         onView(withId(R.id.show_text_view)).check(matches(withText("123")))
     }
 
+    // Test with empty input
+    @Test
+    fun changeText_sameActivity_withEmptyInput() {
+        onView(withId(R.id.editTextUserInput))
+            .perform(clearText(), closeSoftKeyboard())
+        onView(withId(R.id.changeTextBt)).perform(click())
+        onView(withId(R.id.textToBeChanged)).check(matches(withText("")))
+    }
+
 }
